@@ -1,0 +1,116 @@
+{
+  "note": "Survey 항목에 전용 문항이 없을 때 사용하는 범용 템플릿입니다. {activity}는 survey.json 각 선택지의 en 값으로 치환됩니다. 모든 문항은 이 서비스가 독자적으로 작성했습니다.",
+  "selfIntro": [
+    { "text": "Let's start the interview now. Tell me a little bit about yourself." },
+    { "text": "Before we begin, I'd like to get to know you. Please introduce yourself and tell me about your daily life." }
+  ],
+  "groups": {
+    "activity": {
+      "description": [
+        { "text": "You indicated in the survey that you enjoy {activity}. Tell me about it. Where do you usually do it, who do you do it with, and why do you like it? Please describe it in as much detail as possible." },
+        { "text": "In the survey, you said that you like {activity}. What is it about {activity} that you enjoy so much? Describe it for me in detail." }
+      ],
+      "routine": [
+        { "text": "Tell me about your usual routine when it comes to {activity}. How often do you do it, and what do you typically do before, during, and after?" },
+        { "text": "Walk me through a typical day when you spend time {activity}. What do you usually do from beginning to end?" }
+      ],
+      "pastExperience": [
+        { "text": "Think back to when you first started {activity}. How did you become interested in it, and how has your interest changed since then?" }
+      ],
+      "memorable": [
+        { "text": "Tell me about one particularly memorable experience you had related to {activity}. When was it, who were you with, and what exactly happened that made it so memorable?" },
+        { "text": "Describe the most recent time you spent time {activity}. Tell me everything that happened that day, from beginning to end." }
+      ],
+      "comparison": [
+        { "text": "Compare how you enjoy {activity} now with how you did it a few years ago. What has changed, and why do you think it changed?", "minLevel": 3 }
+      ],
+      "problemSolving": [
+        { "text": "Have you ever had an unexpected problem or difficulty while {activity}? Tell me what happened and how you dealt with the situation.", "minLevel": 3 }
+      ],
+      "issue": [
+        { "text": "What are some changes or trends people talk about these days related to {activity}? How do you feel about those changes, and how do they affect people like you?", "minLevel": 5 }
+      ],
+      "askQuestions": [
+        { "text": "I also enjoy {activity}. Ask me three or four questions about my experiences with it." }
+      ]
+    },
+    "sport": {
+      "description": [
+        { "text": "You indicated in the survey that you enjoy {activity}. Where do you usually do it, and who do you usually exercise with? Describe it in detail." }
+      ],
+      "routine": [
+        { "text": "Tell me about your routine for {activity}. How often do you do it, how do you prepare, and what do you do afterward?" }
+      ],
+      "pastExperience": [
+        { "text": "When and how did you start {activity}? Tell me about how you learned it and how your skills have changed over time." }
+      ],
+      "memorable": [
+        { "text": "Tell me about a memorable moment you had while {activity}. Maybe something funny, surprising, or challenging happened. Give me all the details." }
+      ],
+      "comparison": [
+        { "text": "How has the way people exercise changed compared to when you were younger? Compare {activity} back then and today.", "minLevel": 3 }
+      ],
+      "problemSolving": [
+        { "text": "Have you ever been injured or had a problem while {activity}? What happened, and how did you handle it?", "minLevel": 3 }
+      ],
+      "issue": [
+        { "text": "Many people say they want to exercise but cannot find the time. Why do you think that is, and what do you think people can do about it?", "minLevel": 5 }
+      ],
+      "askQuestions": [
+        { "text": "I have been thinking about {activity} too. Ask me three or four questions to find out more about my plans." }
+      ]
+    },
+    "travel": {
+      "description": [
+        { "text": "You indicated in the survey that you enjoy {activity}. Tell me about a place you like to visit. What is it like, and why do you like going there?" }
+      ],
+      "routine": [
+        { "text": "What do you usually do to prepare before {activity}? Describe the steps you typically take, from planning to packing." }
+      ],
+      "pastExperience": [
+        { "text": "Tell me about the first trip you can remember. Where did you go, who were you with, and what did you do there?" }
+      ],
+      "memorable": [
+        { "text": "Tell me about a memorable experience you had while {activity}. What happened, and why do you still remember it?" }
+      ],
+      "comparison": [
+        { "text": "How have the ways people travel changed over the past ten years? Compare how people traveled in the past with how they travel today.", "minLevel": 3 }
+      ],
+      "problemSolving": [
+        { "text": "Have you ever had an unexpected problem while {activity}, such as a delayed flight or a lost item? Tell me what happened and how you solved it.", "minLevel": 3 }
+      ],
+      "issue": [
+        { "text": "Some popular travel destinations are struggling with too many tourists. What problems can this cause, and what do you think should be done about it?", "minLevel": 5 }
+      ],
+      "askQuestions": [
+        { "text": "I am planning a trip soon. Ask me three or four questions about my travel plans." }
+      ]
+    },
+    "home": {
+      "description": [
+        { "text": "You indicated in the survey that you are {activity}. Describe your home for me. What does it look like, and what is your favorite room? Why?" }
+      ],
+      "routine": [
+        { "text": "What do you usually do at home on weekdays and on weekends? Describe a typical day at your home." }
+      ],
+      "pastExperience": [
+        { "text": "Tell me about the home you lived in when you were a child. How was it different from the place you live in now?" }
+      ],
+      "memorable": [
+        { "text": "Have you ever made changes to your home, like redecorating or buying new furniture? Tell me what you changed and how it turned out." }
+      ],
+      "comparison": [
+        { "text": "Compare the homes people lived in when you were young with homes today. What changes have you noticed?", "minLevel": 3 }
+      ],
+      "problemSolving": [
+        { "text": "Tell me about a time something broke or went wrong at home. What was the problem, and how did you fix it?", "minLevel": 3 }
+      ],
+      "issue": [
+        { "text": "Housing prices are a major concern in many cities. What are the housing issues in your country, and how do they affect young people?", "minLevel": 5 }
+      ],
+      "askQuestions": [
+        { "text": "I just moved into a new place. Ask me three or four questions about my new home." }
+      ]
+    }
+  }
+}

@@ -1,0 +1,180 @@
+{
+  "note": "Survey 선택과 무관하게 출제되는 돌발 주제입니다. 항목을 추가하려면 같은 형식으로 topics 배열에 넣으세요. type 값: description, routine, pastExperience, memorable, comparison, problemSolving, issue, askQuestions",
+  "topics": [
+    {
+      "id": "recycling",
+      "ko": "분리수거",
+      "en": "recycling",
+      "questions": [
+        { "type": "description", "text": "Tell me how people recycle in your country. What kinds of items are separated, and how is the trash collected?" },
+        { "type": "routine", "text": "Describe how you recycle at home. What do you do with plastic, paper, and food waste each week?" },
+        { "type": "pastExperience", "text": "Tell me about a time when you made a mistake while recycling, or when you learned something new about recycling." },
+        { "type": "comparison", "text": "How has recycling in Korea changed compared to the past? What new rules or habits have appeared?", "minLevel": 3 },
+        { "type": "issue", "text": "Some people say individual recycling is not enough to solve the waste problem. What do you think companies and the government should do?", "minLevel": 5 }
+      ]
+    },
+    {
+      "id": "transportation",
+      "ko": "대중교통",
+      "en": "public transportation",
+      "questions": [
+        { "type": "description", "text": "Describe the public transportation in your city. What kinds of transportation are available, and which one do you use the most?" },
+        { "type": "routine", "text": "Tell me how you usually get to work or school. Describe your trip from your home to your destination." },
+        { "type": "memorable", "text": "Tell me about a memorable or unexpected experience you had while using public transportation." },
+        { "type": "comparison", "text": "Compare the public transportation of today with what it was like when you were a child.", "minLevel": 3 },
+        { "type": "issue", "text": "What problems do people face with public transportation in big cities, and how could they be solved?", "minLevel": 5 }
+      ]
+    },
+    {
+      "id": "technology",
+      "ko": "기술 변화",
+      "en": "technology",
+      "questions": [
+        { "type": "description", "text": "Tell me about a piece of technology that you use every day. What is it, and how do you use it?" },
+        { "type": "pastExperience", "text": "Tell me about the first time you used a computer or a smartphone. How did you learn to use it?" },
+        { "type": "memorable", "text": "Tell me about a time when a piece of technology stopped working when you really needed it. What did you do?" },
+        { "type": "comparison", "text": "How has technology changed the way people communicate compared to ten years ago?", "minLevel": 3 },
+        { "type": "issue", "text": "Some people worry that technology like artificial intelligence will replace many jobs. What is your opinion?", "minLevel": 5 }
+      ]
+    },
+    {
+      "id": "environment",
+      "ko": "환경 문제",
+      "en": "the environment",
+      "questions": [
+        { "type": "description", "text": "What environmental problems are people in your country concerned about these days? Describe one of them in detail." },
+        { "type": "routine", "text": "What do you do in your daily life to protect the environment? Tell me about your habits." },
+        { "type": "memorable", "text": "Tell me about a time when you experienced an environmental problem yourself, such as bad air or extreme weather." },
+        { "type": "comparison", "text": "Compare people's attitudes toward the environment today with those in the past.", "minLevel": 3 },
+        { "type": "issue", "text": "Who do you think is most responsible for solving environmental problems: individuals, companies, or governments? Explain your view.", "minLevel": 5 }
+      ]
+    },
+    {
+      "id": "banks",
+      "ko": "은행",
+      "en": "banks",
+      "questions": [
+        { "type": "description", "text": "Describe a bank in your neighborhood. What does it look like, and what services does it offer?" },
+        { "type": "routine", "text": "What do you usually do when you go to the bank? Or do you do your banking online? Tell me about it." },
+        { "type": "memorable", "text": "Tell me about a time when you had a problem at a bank or with a banking app. What happened?" },
+        { "type": "comparison", "text": "How has banking changed over the years? Compare banking in the past with banking today.", "minLevel": 3 }
+      ]
+    },
+    {
+      "id": "weather",
+      "ko": "날씨와 계절",
+      "en": "the weather",
+      "questions": [
+        { "type": "description", "text": "Describe the weather and the seasons in your country. Which season do you like best, and why?" },
+        { "type": "routine", "text": "What do people in your country usually do during the summer or winter? Tell me about seasonal activities." },
+        { "type": "memorable", "text": "Tell me about a memorable experience you had because of extreme weather." },
+        { "type": "comparison", "text": "How has the weather in your country changed compared to when you were young?", "minLevel": 3 }
+      ]
+    },
+    {
+      "id": "holidays",
+      "ko": "명절과 공휴일",
+      "en": "holidays",
+      "questions": [
+        { "type": "description", "text": "Tell me about a major holiday in your country. When is it, and what do people do on that day?" },
+        { "type": "routine", "text": "How do you usually spend holidays with your family? Describe what you do from beginning to end." },
+        { "type": "memorable", "text": "Tell me about a holiday that you especially remember from your childhood." },
+        { "type": "comparison", "text": "How have holiday traditions changed compared to the past?", "minLevel": 3 }
+      ]
+    },
+    {
+      "id": "appliances",
+      "ko": "가전제품",
+      "en": "home appliances",
+      "questions": [
+        { "type": "description", "text": "Tell me about the home appliances you have at home. Which one is the most useful to you, and why?" },
+        { "type": "memorable", "text": "Tell me about a time when one of your home appliances broke down. What did you do?" },
+        { "type": "comparison", "text": "Compare the home appliances people used in the past with the ones people use today.", "minLevel": 3 }
+      ]
+    },
+    {
+      "id": "restaurants",
+      "ko": "음식점",
+      "en": "restaurants",
+      "questions": [
+        { "type": "description", "text": "Describe a restaurant you like to go to. What kind of food does it serve, and why do you like it?" },
+        { "type": "routine", "text": "When do you usually eat out, and who do you go with? Describe your typical experience." },
+        { "type": "memorable", "text": "Tell me about a memorable meal you had at a restaurant." },
+        { "type": "comparison", "text": "How have eating habits in Korea changed recently, for example with food delivery apps?", "minLevel": 3 }
+      ]
+    },
+    {
+      "id": "health",
+      "ko": "건강",
+      "en": "health",
+      "questions": [
+        { "type": "description", "text": "What do people in your country do to stay healthy? Tell me about some popular healthy habits." },
+        { "type": "routine", "text": "What do you do to stay healthy? Describe your eating, sleeping, and exercise habits." },
+        { "type": "memorable", "text": "Tell me about a time when you were sick or injured. What happened, and how did you recover?" },
+        { "type": "issue", "text": "Many people today suffer from stress. What causes it, and what do you think people can do to reduce it?", "minLevel": 5 }
+      ]
+    },
+    {
+      "id": "internet",
+      "ko": "인터넷",
+      "en": "the internet",
+      "questions": [
+        { "type": "description", "text": "Tell me about the websites or apps you visit most often. What do you usually do on them?" },
+        { "type": "routine", "text": "Describe how you usually use the internet during a typical day." },
+        { "type": "memorable", "text": "Tell me about a time when you found really useful information on the internet." },
+        { "type": "issue", "text": "What are some problems caused by the internet, such as fake news or privacy issues? How can people protect themselves?", "minLevel": 5 }
+      ]
+    },
+    {
+      "id": "neighborhood",
+      "ko": "동네와 이웃",
+      "en": "your neighborhood",
+      "questions": [
+        { "type": "description", "text": "Describe the neighborhood you live in. What kinds of buildings and places are there?" },
+        { "type": "routine", "text": "What do you usually do in your neighborhood? Tell me about the places you often visit." },
+        { "type": "memorable", "text": "Tell me about a memorable experience you had with one of your neighbors." },
+        { "type": "comparison", "text": "How has your neighborhood changed since you first moved there?", "minLevel": 3 }
+      ]
+    },
+    {
+      "id": "fashion",
+      "ko": "패션",
+      "en": "fashion",
+      "questions": [
+        { "type": "description", "text": "Describe the kind of clothes people in your country usually wear. What is popular these days?" },
+        { "type": "routine", "text": "How do you usually decide what to wear in the morning? Tell me about your style." },
+        { "type": "comparison", "text": "Compare the fashion of today with the fashion from ten years ago.", "minLevel": 3 }
+      ]
+    },
+    {
+      "id": "geography",
+      "ko": "지형과 지리",
+      "en": "geography",
+      "questions": [
+        { "type": "description", "text": "Describe the geography of your country. Are there many mountains, rivers, or beaches?" },
+        { "type": "routine", "text": "What do people in your country like to do outdoors because of the geography, like hiking or going to the beach?" },
+        { "type": "memorable", "text": "Tell me about a natural place in your country that you visited and found impressive." }
+      ]
+    },
+    {
+      "id": "furniture",
+      "ko": "가구",
+      "en": "furniture",
+      "questions": [
+        { "type": "description", "text": "Tell me about your favorite piece of furniture at home. What does it look like, and why do you like it?" },
+        { "type": "pastExperience", "text": "Tell me about the last time you bought furniture. Where did you buy it, and how did you choose it?" },
+        { "type": "comparison", "text": "Compare the furniture in your home now with the furniture you had when you were a child.", "minLevel": 3 }
+      ]
+    },
+    {
+      "id": "free-time",
+      "ko": "자유 시간",
+      "en": "free time",
+      "questions": [
+        { "type": "description", "text": "What do people in your country usually do in their free time? Describe some popular activities." },
+        { "type": "comparison", "text": "Compare how you spent your free time when you were in high school with how you spend it now.", "minLevel": 3 },
+        { "type": "issue", "text": "Some people say Koreans do not have enough free time because of long working hours. What do you think?", "minLevel": 5 }
+      ]
+    }
+  ]
+}

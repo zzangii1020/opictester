@@ -1,0 +1,98 @@
+{
+  "note": "Survey 주제별 전용 문항입니다. 키는 survey.json의 option id입니다. 문항을 추가하려면 같은 형식으로 항목을 늘리면 됩니다. 모든 문항은 독자적으로 작성한 연습용 문항입니다.",
+  "topics": {
+    "movies": [
+      { "type": "description", "text": "You indicated that you like watching movies. What kinds of movies do you like, and who are your favorite actors? Tell me why you like them." },
+      { "type": "routine", "text": "Describe what you usually do when you go to the movies. Who do you go with, how do you choose a movie, and what do you do before and after it?" },
+      { "type": "memorable", "text": "Tell me about a movie that left a strong impression on you. What was the story about, and why was it so memorable?" },
+      { "type": "comparison", "text": "Compare the movie theaters you went to as a child with the theaters today. What are the biggest differences?", "minLevel": 3 },
+      { "type": "issue", "text": "More and more people watch new movies at home on streaming services instead of going to theaters. What do you think about this trend?", "minLevel": 5 }
+    ],
+    "concert": [
+      { "type": "description", "text": "You said that you enjoy going to concerts. What kind of music concerts do you usually go to, and where are they usually held?" },
+      { "type": "routine", "text": "What do you usually do before and after going to a concert? Tell me about how you buy tickets and how you get there." },
+      { "type": "memorable", "text": "Tell me about the most exciting concert you have ever been to. Who performed, who were you with, and what made it special?" },
+      { "type": "comparison", "text": "How have concerts changed compared to the past? Think about ticket prices, the size of the venues, and how people enjoy the show.", "minLevel": 3 }
+    ],
+    "park": [
+      { "type": "description", "text": "You indicated that you like going to parks. Describe a park you often go to. Where is it, and what does it look like?" },
+      { "type": "routine", "text": "What do you usually do when you go to the park? Who do you go with, and how long do you usually stay?" },
+      { "type": "memorable", "text": "Tell me about a memorable day you spent at a park. What happened, and why do you remember it?" },
+      { "type": "comparison", "text": "Compare the parks you went to as a child with the parks today. What has changed?", "minLevel": 3 }
+    ],
+    "beach": [
+      { "type": "description", "text": "You said you like going to the beach. Tell me about your favorite beach. Where is it, and what makes it special?" },
+      { "type": "routine", "text": "What do you usually do when you go to the beach? Describe your typical day there from morning to evening." },
+      { "type": "memorable", "text": "Tell me about a memorable trip you took to the beach. What happened during that trip?" }
+    ],
+    "cafe": [
+      { "type": "description", "text": "You indicated that you go to cafes. Describe a cafe you often visit. What does it look like, and why do you like going there?" },
+      { "type": "routine", "text": "What do you usually do at cafes? Do you meet friends, study, or work? Tell me about your usual routine." },
+      { "type": "memorable", "text": "Tell me about a memorable experience you had at a cafe. Maybe you met someone special or something unexpected happened." },
+      { "type": "comparison", "text": "Cafes in Korea have changed a lot over the years. Compare the cafes of the past with the cafes today.", "minLevel": 3 }
+    ],
+    "shopping": [
+      { "type": "description", "text": "You said that you like shopping. Where do you usually go shopping, and what do you like to buy?" },
+      { "type": "routine", "text": "Describe how you usually shop. Do you make a list, compare prices, or shop online? Tell me about your shopping habits." },
+      { "type": "memorable", "text": "Tell me about a time when you bought something and had a problem with it. What happened, and how did you solve it?" },
+      { "type": "comparison", "text": "Compare shopping online with shopping in a store. What are the advantages and disadvantages of each?", "minLevel": 3 }
+    ],
+    "tv": [
+      { "type": "description", "text": "You indicated that you watch TV. What kinds of TV programs do you like, and why do you enjoy them?" },
+      { "type": "routine", "text": "When and where do you usually watch TV? Describe your routine for watching your favorite shows." },
+      { "type": "memorable", "text": "Tell me about a TV show that you really enjoyed. What was it about, and why did you like it so much?" },
+      { "type": "comparison", "text": "How has the way people watch TV changed compared to when you were young?", "minLevel": 3 }
+    ],
+    "music": [
+      { "type": "description", "text": "You said that you enjoy listening to music. What kind of music do you like, and who are your favorite singers or musicians?" },
+      { "type": "routine", "text": "When and where do you usually listen to music? What devices or apps do you use?" },
+      { "type": "pastExperience", "text": "How did you first become interested in music? Tell me how your taste in music has changed since you were young." },
+      { "type": "memorable", "text": "Tell me about a memorable experience you had while listening to live music." },
+      { "type": "comparison", "text": "Compare the way people listened to music in the past with how people listen to music today.", "minLevel": 3 }
+    ],
+    "cooking": [
+      { "type": "description", "text": "You indicated that you like cooking. What kinds of food do you like to cook, and what is your best dish?" },
+      { "type": "routine", "text": "Tell me how you usually prepare a meal. What do you do from buying ingredients to cleaning up?" },
+      { "type": "memorable", "text": "Tell me about a time when your cooking did not go as planned. What happened, and what did you do?" },
+      { "type": "comparison", "text": "Compare cooking at home with eating out. Which do you prefer, and why?", "minLevel": 3 }
+    ],
+    "reading": [
+      { "type": "description", "text": "You said that you like reading. What kinds of books do you enjoy, and who is your favorite author?" },
+      { "type": "routine", "text": "When and where do you usually read? Describe your reading habits." },
+      { "type": "memorable", "text": "Tell me about a book that made a strong impression on you. What was it about, and how did it affect you?" },
+      { "type": "comparison", "text": "Compare reading paper books with reading e-books. Which do you prefer, and why?", "minLevel": 3 }
+    ],
+    "walking": [
+      { "type": "description", "text": "You indicated that you enjoy walking. Where do you usually go for a walk, and what is the place like?" },
+      { "type": "routine", "text": "Tell me about your walking routine. When do you walk, how long do you walk, and who do you walk with?" },
+      { "type": "memorable", "text": "Tell me about a memorable experience you had while you were out on a walk." }
+    ],
+    "jogging": [
+      { "type": "description", "text": "You said you go jogging. Where do you usually jog, and what is that place like?" },
+      { "type": "routine", "text": "Describe your jogging routine. What do you do before you start, while you jog, and after you finish?" },
+      { "type": "memorable", "text": "Tell me about a time something unexpected happened while you were jogging." }
+    ],
+    "gym": [
+      { "type": "description", "text": "You indicated that you work out at a gym. Describe the gym you go to. What does it look like, and what equipment does it have?" },
+      { "type": "routine", "text": "Tell me about your workout routine at the gym. What exercises do you do, and in what order?" },
+      { "type": "memorable", "text": "Tell me about a memorable experience you had at the gym." }
+    ],
+    "domesticTravel": [
+      { "type": "description", "text": "You indicated that you enjoy traveling in Korea. Tell me about a place in Korea that you like to visit. What is it like?" },
+      { "type": "routine", "text": "How do you usually prepare for a domestic trip? Tell me how you plan, where you stay, and how you get there." },
+      { "type": "memorable", "text": "Tell me about the most memorable trip you have taken in Korea. Where did you go, and what happened?" },
+      { "type": "comparison", "text": "Compare traveling in Korea with traveling abroad. What are the good and bad points of each?", "minLevel": 3 }
+    ],
+    "overseasTravel": [
+      { "type": "description", "text": "You said that you like traveling abroad. Tell me about a country you have visited. What was it like there?" },
+      { "type": "routine", "text": "What do you usually do to get ready for an overseas trip? Tell me about everything you do before you leave." },
+      { "type": "memorable", "text": "Tell me about something unexpected or memorable that happened during an overseas trip." },
+      { "type": "comparison", "text": "Compare the first overseas trip you took with your most recent one. How were they different?", "minLevel": 3 }
+    ],
+    "homeVacation": [
+      { "type": "description", "text": "You indicated that you spend your vacations at home. What do you like to do when you are on vacation at home, and why?" },
+      { "type": "routine", "text": "Tell me about the people you like to see or spend time with when you are on vacation at home." },
+      { "type": "memorable", "text": "Tell me about a vacation you spent at home that was especially memorable. What did you do?" }
+    ]
+  }
+}

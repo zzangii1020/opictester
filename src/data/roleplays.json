@@ -1,0 +1,85 @@
+{
+  "note": "롤플레이 세트입니다. 각 세트는 [상황 속 질문하기 → 문제 해결 → 관련 경험] 순서로 출제됩니다. relatedTopics에 Survey option id를 넣으면 해당 항목을 선택한 사용자에게 우선 출제됩니다.",
+  "sets": [
+    {
+      "id": "rp-movie",
+      "title": "영화 예매",
+      "relatedTopics": ["movies"],
+      "call": "I'd like to give you a situation and ask you to act it out. You want to see a movie with a friend this weekend. Call the movie theater and ask three or four questions to get the information you need.",
+      "problem": "I'm sorry, but there is a problem I need you to resolve. When you arrive at the theater, you realize that you booked tickets for the wrong date. Explain the situation to the staff and suggest two or three ways to solve the problem.",
+      "experience": "Have you ever had a problem with a reservation or a booking? Tell me what happened and how the situation was resolved."
+    },
+    {
+      "id": "rp-concert",
+      "title": "콘서트 티켓",
+      "relatedTopics": ["concert", "performance", "music"],
+      "call": "I'd like to give you a situation and ask you to act it out. You want to buy tickets for a concert. Call the ticket office and ask three or four questions about the concert.",
+      "problem": "Unfortunately, you suddenly cannot go to the concert because of an urgent matter. Call your friend who was going to go with you, explain the situation, and offer two or three alternatives.",
+      "experience": "Have you ever had to cancel plans with a friend at the last minute? Tell me what happened and how you handled it."
+    },
+    {
+      "id": "rp-cafe",
+      "title": "카페 주문",
+      "relatedTopics": ["cafe"],
+      "call": "Please act out the following situation. A new cafe has opened in your neighborhood. Go to the counter and ask the barista three or four questions about the menu and the cafe.",
+      "problem": "There is a problem. The drink you received is not what you ordered, and you are in a hurry. Explain the problem to the staff and suggest a solution.",
+      "experience": "Have you ever received the wrong order at a restaurant or a cafe? Describe what happened and what you did."
+    },
+    {
+      "id": "rp-shopping",
+      "title": "물건 교환",
+      "relatedTopics": ["shopping"],
+      "call": "Please act out this situation. You want to buy a gift for a friend at a department store. Ask the clerk three or four questions to find the right gift.",
+      "problem": "After you get home, you find that the item you bought is damaged. Call the store, explain the problem, and ask for two or three possible solutions.",
+      "experience": "Tell me about a time you had to return or exchange something you bought. What was the problem, and how was it resolved?"
+    },
+    {
+      "id": "rp-gym",
+      "title": "헬스장 등록",
+      "relatedTopics": ["gym", "fitnessClass", "yoga", "swimming"],
+      "call": "Please act out this situation. You want to sign up for a fitness center near your home. Call the center and ask three or four questions about its programs and fees.",
+      "problem": "After you sign up, you get hurt and cannot exercise for two months. Call the fitness center, explain the situation, and suggest a few options.",
+      "experience": "Have you ever had to stop doing something you enjoyed because of an unexpected situation? Tell me about it."
+    },
+    {
+      "id": "rp-travel",
+      "title": "여행 예약",
+      "relatedTopics": ["domesticTravel", "overseasTravel", "overseasBusinessTrip", "domesticBusinessTrip", "camping", "beach"],
+      "call": "I'd like you to act out a situation. You are planning a trip and want to book a hotel. Call the hotel and ask three or four questions about the rooms and facilities.",
+      "problem": "When you arrive at the hotel, you are told that there is no record of your reservation. Explain the situation to the front desk and propose two or three ways to solve the problem.",
+      "experience": "Tell me about a time when something went wrong during a trip. What happened, and how did you deal with it?"
+    },
+    {
+      "id": "rp-home",
+      "title": "집 수리 요청",
+      "relatedTopics": ["homeImprovement", "homeVacation"],
+      "call": "Please act out this situation. You are looking for a new apartment. Call a real estate agent and ask three or four questions about an apartment you are interested in.",
+      "problem": "After moving in, you find that the heating does not work. Call the landlord, explain the problem, and ask for it to be fixed.",
+      "experience": "Have you ever had a problem with something in your home? Tell me what happened and how it was fixed."
+    },
+    {
+      "id": "rp-park",
+      "title": "공원 모임",
+      "relatedTopics": ["park", "walking", "jogging", "cycling", "hiking"],
+      "call": "Please act out this situation. Your friend suggested going to a new park together this weekend. Call your friend and ask three or four questions about the plan.",
+      "problem": "On the day you planned to go, it starts raining heavily. Call your friend, explain the situation, and suggest two or three other things you can do instead.",
+      "experience": "Tell me about a time when your plans were ruined by the weather. What did you do instead?"
+    },
+    {
+      "id": "rp-phone",
+      "title": "휴대폰 구매",
+      "relatedTopics": ["sns", "texting", "games", "photography"],
+      "call": "Please act out this situation. You want to buy a new smartphone. Go to a phone store and ask the salesperson three or four questions about the phone you want.",
+      "problem": "A few days after buying the phone, it keeps turning off by itself. Visit the store, explain the problem, and suggest how it could be handled.",
+      "experience": "Have you ever had a problem with an electronic device? What was the problem, and how did you solve it?"
+    },
+    {
+      "id": "rp-restaurant",
+      "title": "식당 예약",
+      "relatedTopics": ["cooking", "bar", "drive"],
+      "call": "I'd like you to act out a situation. You want to make a reservation at a restaurant for a family dinner. Call the restaurant and ask three or four questions.",
+      "problem": "When you arrive, the restaurant says it is fully booked and cannot find your reservation. Explain the situation and suggest some alternatives.",
+      "experience": "Tell me about a memorable experience you had at a restaurant, either good or bad."
+    }
+  ]
+}
