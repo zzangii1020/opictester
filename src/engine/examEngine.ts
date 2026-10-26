@@ -81,6 +81,28 @@ function surpriseCombo(topic: SurpriseTopic, types: QuestionType[], level: numbe
   return buildCombo((type) => surpriseQuestion(topic, type, level, rng), types);
 }
 
+/**
+ * Guarantees the promised question count: if combos came up short (a topic without enough questions at this
+ * level), top up from backup sources. The exam screen relies on `questions.length === totalQuestions`.
+ */
+function fillTo(qs: Question[], needed: number, backups: (() => Question[])[], alreadyAsked: Question[] = []): Question[] {
+  const out = qs.slice(0, needed);
+  const seen = new Set([...alreadyAsked, ...out].map((q) => q.text));
+  for (const backup of backups) {
+    if (out.length >= needed) break;
+    for (const q of backup()) {
+      if (out.length >= needed) break;
+      if (!seen.has(q.text)) {
+        seen.add(q.text);
+        out.push(q);
+      }
+    }
+  }
+  return out;
+}
+
+const BACKUP_TYPES: QuestionType[] = ['description', 'routine', 'memorable', 'pastExperience', 'comparison', 'problemSolving'];
+
 function withIds(questions: Question[], offset: number): Question[] {
   return questions.map((q, i) => ({ ...q, id: `q${offset + i + 1}` }));
 }
@@ -93,10 +115,15 @@ export function buildSession1(survey: SurveyAnswers, level: Level, seed: number)
     ...surveyCombo(plan.topicA, ['description', 'routine', level >= 5 ? 'memorable' : 'pastExperience'], level, seed + 2),
     ...surveyCombo(plan.topicB, ['description', level >= 3 ? 'comparison' : 'routine', 'memorable'], level, seed + 3),
   ];
-  return withIds(qs.slice(0, SESSION1_COUNT), 0);
+  const filled = fillTo(qs, SESSION1_COUNT, [
+    () => (plan.topicC ? surveyCombo(plan.topicC, BACKUP_TYPES, level, seed + 7) : []),
+    () => surveyCombo(plan.topicA, BACKUP_TYPES, 6, seed + 8),
+  ]);
+  return withIds(filled, 0);
 }
 
-export function buildSession2(survey: SurveyAnswers, level: Level, seed: number, total: number): Question[] {
+/** `asked` = the session-1 questions, so backups never repeat something the user already answered. */
+export function buildSession2(survey: SurveyAnswers, level: Level, seed: number, total: number, asked: Question[] = []): Question[] {
   const plan = planExam(survey, seed);
   const roleplay = roleplaySets.find((s) => s.id === plan.roleplayId) ?? roleplaySets[0];
   const qs: Question[] = [];
@@ -111,7 +138,13 @@ export function buildSession2(survey: SurveyAnswers, level: Level, seed: number,
     qs.push(...roleplayQuestions(roleplay));
     qs.push(...surpriseCombo(plan.surprise, ['description', 'memorable'], level, seed + 4));
   }
-  return withIds(qs.slice(0, total - SESSION1_COUNT), SESSION1_COUNT);
+  const filled = fillTo(qs, total - SESSION1_COUNT, [
+    () => surpriseCombo(plan.surprise2, BACKUP_TYPES, level, seed + 6),
+    () => surveyCombo(plan.topicC ?? plan.topicB, BACKUP_TYPES, level, seed + 7),
+    () => surveyCombo(plan.topicA, BACKUP_TYPES, 6, seed + 8),
+    () => surpriseTopics.flatMap((t) => surpriseCombo(t, BACKUP_TYPES, 6, seed + 9)),
+  ], asked);
+  return withIds(filled, SESSION1_COUNT);
 }
 
 export function createExam(survey: SurveyAnswers, level: Level): ExamState {
@@ -178,12 +211,13 @@ export function examReducer(state: ExamState, action: ExamAction): ExamState {
     }
     case 'adjust': {
       const adjustedLevel = adjustLevel(state.level, action.adjustment);
-      const session2 = buildSession2(state.survey, adjustedLevel, state.seed, state.totalQuestions);
+      const session1 = state.questions.slice(0, SESSION1_COUNT);
+      const session2 = buildSession2(state.survey, adjustedLevel, state.seed, state.totalQuestions, session1);
       return {
         ...state,
         adjustment: action.adjustment,
         adjustedLevel,
-        questions: [...state.questions.slice(0, SESSION1_COUNT), ...session2],
+        questions: [...session1, ...session2],
         currentIndex: SESSION1_COUNT,
         phase: 'question',
       };

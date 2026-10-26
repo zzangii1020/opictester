@@ -88,6 +88,7 @@
       "en": "home appliances",
       "questions": [
         { "type": "description", "text": "Tell me about the home appliances you have at home. Which one is the most useful to you, and why?" },
+        { "type": "routine", "text": "Which home appliances do you use every day? Tell me how you use them from morning to night." },
         { "type": "memorable", "text": "Tell me about a time when one of your home appliances broke down. What did you do?" },
         { "type": "comparison", "text": "Compare the home appliances people used in the past with the ones people use today.", "minLevel": 3 }
       ]
@@ -143,6 +144,7 @@
       "questions": [
         { "type": "description", "text": "Describe the kind of clothes people in your country usually wear. What is popular these days?" },
         { "type": "routine", "text": "How do you usually decide what to wear in the morning? Tell me about your style." },
+        { "type": "memorable", "text": "Tell me about the last time you went shopping for clothes. Where did you go, and what did you buy?" },
         { "type": "comparison", "text": "Compare the fashion of today with the fashion from ten years ago.", "minLevel": 3 }
       ]
     },
@@ -163,6 +165,7 @@
       "questions": [
         { "type": "description", "text": "Tell me about your favorite piece of furniture at home. What does it look like, and why do you like it?" },
         { "type": "pastExperience", "text": "Tell me about the last time you bought furniture. Where did you buy it, and how did you choose it?" },
+        { "type": "routine", "text": "Describe the furniture in your living room or bedroom. How do you use each piece every day?" },
         { "type": "comparison", "text": "Compare the furniture in your home now with the furniture you had when you were a child.", "minLevel": 3 }
       ]
     },
@@ -172,6 +175,8 @@
       "en": "free time",
       "questions": [
         { "type": "description", "text": "What do people in your country usually do in their free time? Describe some popular activities." },
+        { "type": "routine", "text": "Tell me what you usually do in your free time on weekdays and on weekends." },
+        { "type": "memorable", "text": "Tell me about a time you had a lot of free time, such as a long holiday. What did you do?" },
         { "type": "comparison", "text": "Compare how you spent your free time when you were in high school with how you spend it now.", "minLevel": 3 },
         { "type": "issue", "text": "Some people say Koreans do not have enough free time because of long working hours. What do you think?", "minLevel": 5 }
       ]

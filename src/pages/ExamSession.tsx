@@ -122,6 +122,17 @@ export function ExamSession() {
   if (exam.phase === 'finished') return <div className="narrow"><p>결과를 저장하는 중…</p></div>;
 
   const question = exam.questions[exam.currentIndex];
+  if (!question) {
+    // Defensive: a saved exam with fewer questions than promised (older app versions) ends cleanly.
+    return (
+      <div className="narrow">
+        <Notice tone="warn" title="남은 문항이 없습니다">
+          <p>저장된 시험에 더 이상 문항이 없어 여기서 시험을 마칩니다. 지금까지의 답변은 결과에 저장됩니다.</p>
+          <button className="btn btn-primary btn-sm" onClick={() => dispatch({ type: 'finish' })}>시험 종료하고 결과 보기</button>
+        </Notice>
+      </div>
+    );
+  }
   const answer = exam.answers[question.id];
   const isLast = exam.currentIndex + 1 >= exam.totalQuestions;
   const answeredCount = Object.keys(exam.answers).length;
