@@ -6,6 +6,7 @@ import { isSurveyComplete, surveyTopics } from '../engine/surveyData';
 import { ConfirmDialog, formatDate, Notice } from '../components/common';
 import type { TargetGrade } from '../types';
 import { deleteAudioByPrefix } from '../lib/audioDb';
+import { InstallPrompt } from '../components/InstallPrompt';
 
 export function HomePage() {
   const { settings, updateSettings, activeExam, setActiveExam, results, practice } = useStore();
@@ -46,6 +47,8 @@ export function HomePage() {
         </button>
         <p className="small muted">약 20~40분 소요 · 마이크가 필요합니다 · {surveyDone ? '이전 Survey 설정을 불러와 확인합니다' : 'Survey부터 시작합니다'}</p>
       </section>
+
+      <InstallPrompt />
 
       <section className="card target-card">
         <div className="row between wrap">

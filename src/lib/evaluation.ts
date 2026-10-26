@@ -12,10 +12,13 @@ export interface AiStatus {
 
 export async function fetchAiStatus(): Promise<AiStatus> {
   try {
-    const res = await fetch('/api/status', { headers: { accept: 'application/json' } });
+    const res = await fetch('./api/status', { headers: { accept: 'application/json' } });
+    const isJson = res.headers.get('content-type')?.includes('application/json');
+    if (res.status === 404 || !isJson) {
+      return { available: false, reason: '이 주소는 정적 호스팅(예: GitHub Pages)이라 AI 평가 서버가 없습니다.' };
+    }
     if (!res.ok) return { available: false, reason: `평가 서버 응답 오류 (${res.status})` };
-    const data = (await res.json()) as AiStatus;
-    return data;
+    return (await res.json()) as AiStatus;
   } catch {
     return { available: false, reason: 'AI 평가 서버에 연결할 수 없습니다. (정적 배포만 된 경우 서버가 없습니다)' };
   }
@@ -47,7 +50,7 @@ export function buildItems(questions: Question[], answers: Record<string, Answer
 }
 
 export async function requestEvaluation(items: EvaluationItem[], level: number, targetGrade: TargetGrade): Promise<AiEvaluation> {
-  const res = await fetch('/api/evaluate', {
+  const res = await fetch('./api/evaluate', {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ items, level, targetGrade }),
