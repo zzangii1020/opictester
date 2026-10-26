@@ -295,6 +295,75 @@ try {
   check('마이크 권한 거부 시 원인 안내 및 다시 시도 버튼', await denied.getByRole('button', { name: '다시 시도' }).isVisible());
   await deniedCtx.close();
 
+  // 10b. iPhone failure modes reproduced in Chromium
+  {
+    // Speech recognition that aborts instantly (what iOS does while the recorder holds the mic).
+    const { context: c1, page: p1 } = await newPage();
+    await c1.addInitScript(() => {
+      window.__recStarts = 0;
+      class AbortingRecognition {
+        start() { window.__recStarts++; setTimeout(() => { this.onerror?.({ error: 'aborted' }); this.onend?.(); }, 5); }
+        stop() { setTimeout(() => this.onend?.(), 5); }
+        abort() {}
+      }
+      window.webkitSpeechRecognition = AbortingRecognition;
+      window.SpeechRecognition = AbortingRecognition;
+      localStorage.setItem('opic-mock.settings.v1', JSON.stringify({ prefs: { sttEnabled: true } }));
+    });
+    await p1.goto(`${BASE}/#/practice`);
+    await p1.locator('label.field', { hasText: '질문 후 준비 시간' }).locator('select').selectOption('0');
+    await p1.getByRole('button', { name: '훈련 시작' }).click();
+    await p1.getByText('녹음 중 · 답변하고 있습니다').waitFor({ timeout: 10000 });
+    await p1.waitForTimeout(3000);
+    const starts = await p1.evaluate(() => window.__recStarts);
+    const t0 = Date.now();
+    await p1.getByRole('button', { name: '■ 녹음 종료' }).click({ timeout: 3000 });
+    await p1.locator('.practice-card .answer-card audio').waitFor({ timeout: 6000 });
+    check('iOS 재현: 음성 인식 즉시 중단 시 재시작 루프 없음', starts <= 4, `starts=${starts}`);
+    check('iOS 재현: 그 상태에서도 녹음 종료 정상', Date.now() - t0 < 6000, `${Date.now() - t0}ms`);
+    check('iOS 재현: 음성 인식 중단 안내', await p1.getByText('음성 인식이 계속 중단되어').isVisible());
+    await c1.close();
+
+    // MediaRecorder that never fires onstop.
+    const { context: c2, page: p2 } = await newPage();
+    await c2.addInitScript(() => {
+      const realStop = MediaRecorder.prototype.stop;
+      MediaRecorder.prototype.stop = function () {
+        this.requestData();
+        const self = this;
+        setTimeout(() => { self.onstop = null; realStop.call(self); }, 0);
+      };
+      Object.defineProperty(MediaRecorder.prototype, 'onstop', { set() {}, get() { return null; }, configurable: true });
+    });
+    await p2.goto(`${BASE}/#/practice`);
+    await p2.locator('label.field', { hasText: '질문 후 준비 시간' }).locator('select').selectOption('0');
+    await p2.getByRole('button', { name: '훈련 시작' }).click();
+    await p2.getByText('녹음 중 · 답변하고 있습니다').waitFor({ timeout: 10000 });
+    await p2.waitForTimeout(1500);
+    const t1 = Date.now();
+    await p2.getByRole('button', { name: '■ 녹음 종료' }).click();
+    await p2.locator('.practice-card .answer-card audio').waitFor({ timeout: 8000 });
+    check('iOS 재현: onstop 미발생 시에도 녹음 저장', true, `${Date.now() - t1}ms`);
+    await c2.close();
+
+    // iPhone user agent + speech recognition enabled → recording only, with a notice.
+    const { context: c3, page: p3 } = await newPage({
+      userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1',
+      viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true,
+    });
+    await c3.addInitScript(() => localStorage.setItem('opic-mock.settings.v1', JSON.stringify({ prefs: { sttEnabled: true } })));
+    await p3.goto(`${BASE}/#/practice`);
+    await p3.locator('label.field', { hasText: '질문 후 준비 시간' }).locator('select').selectOption('0');
+    await p3.getByRole('button', { name: '훈련 시작' }).click();
+    await p3.getByText('녹음 중 · 답변하고 있습니다').waitFor({ timeout: 10000 });
+    check('iPhone: 녹음 중 음성 인식 비활성 안내', await p3.getByText('iPhone·iPad에서는 녹음 중 음성 인식을').isVisible());
+    await p3.waitForTimeout(1000);
+    await p3.getByRole('button', { name: '■ 녹음 종료' }).tap();
+    await p3.locator('.practice-card .answer-card audio').waitFor({ timeout: 6000 });
+    check('iPhone: 탭으로 녹음 종료', true);
+    await c3.close();
+  }
+
   // 11. Mobile viewport
   const { context: mobileCtx, page: mobile } = await newPage({ viewport: { width: 375, height: 740 }, isMobile: true, hasTouch: true });
   const overflow = async (label) => {

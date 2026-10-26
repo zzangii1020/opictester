@@ -59,6 +59,10 @@ function toRecorderError(err: unknown): RecorderError {
   }
 }
 
+export function isIOS() {
+  return /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+}
+
 export class VoiceRecorder {
   private stream: MediaStream | null = null;
   private recorder: MediaRecorder | null = null;
@@ -85,7 +89,9 @@ export class VoiceRecorder {
       this.recorder.ondataavailable = (e) => {
         if (e.data.size > 0) this.chunks.push(e.data);
       };
-      this.recorder.start(1000);
+      // iOS/Safari's MP4 recorder misbehaves with a timeslice; let it deliver one blob on stop instead.
+      if (this.recorder.mimeType.includes('mp4') || mimeType.includes('mp4') || isIOS()) this.recorder.start();
+      else this.recorder.start(1000);
       this.startedAt = performance.now();
       this.setupMeter(this.stream);
     } catch (err) {
@@ -101,15 +107,26 @@ export class VoiceRecorder {
       return Promise.reject(new RecorderError('empty', '진행 중인 녹음이 없습니다.'));
     }
     return new Promise((resolve, reject) => {
-      recorder.onstop = () => {
+      let settled = false;
+      const finish = () => {
+        if (settled) return;
+        settled = true;
+        window.clearTimeout(watchdog);
         const durationMs = Math.round(performance.now() - this.startedAt);
-        const mimeType = recorder.mimeType || this.chunks[0]?.type || 'audio/webm';
+        const mimeType = recorder.mimeType || this.chunks[0]?.type || 'audio/mp4';
         const blob = new Blob(this.chunks, { type: mimeType });
         this.release();
         if (blob.size === 0) reject(new RecorderError('empty', '녹음된 소리가 없습니다. 마이크가 음소거되어 있지 않은지 확인하고 다시 녹음해 주세요.'));
         else resolve({ blob, mimeType, durationMs });
       };
-      recorder.stop();
+      // Some iOS versions never fire onstop; finish with whatever data arrived instead of hanging forever.
+      const watchdog = window.setTimeout(finish, 4000);
+      recorder.onstop = () => window.setTimeout(finish, 0); // let a final dataavailable land first
+      try {
+        recorder.stop();
+      } catch {
+        finish();
+      }
     });
   }
 
@@ -140,6 +157,8 @@ export class VoiceRecorder {
       this.analyser.fftSize = 512;
       this.levelBuffer = new Uint8Array(new ArrayBuffer(this.analyser.fftSize));
       this.audioCtx.createMediaStreamSource(stream).connect(this.analyser);
+      // iOS creates the context suspended because it is no longer inside the tap gesture.
+      if (this.audioCtx.state === 'suspended') void this.audioCtx.resume().catch(() => undefined);
     } catch {
       this.analyser = null; // meter is optional
     }

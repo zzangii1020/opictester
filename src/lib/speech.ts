@@ -90,8 +90,18 @@ export function startTranscription(onUpdate: (text: string) => void, onError: (m
   let active = true;
   let resolveStop: ((t: string) => void) | null = null;
   let rec: Recognition;
+  let startedAt = 0;
+  let quickEnds = 0;
+  let restarts = 0;
+  let restartTimer: number | undefined;
 
   const emit = () => onUpdate(`${finalText} ${interim}`.trim());
+  const giveUp = (msg: string) => {
+    if (!active) return;
+    active = false;
+    window.clearTimeout(restartTimer);
+    onError(msg);
+  };
 
   const begin = () => {
     rec = new Ctor();
@@ -105,31 +115,47 @@ export function startTranscription(onUpdate: (text: string) => void, onError: (m
         if (r.isFinal) finalText = `${finalText} ${r[0].transcript}`.trim();
         else interim += r[0].transcript;
       }
+      quickEnds = 0;
       emit();
     };
     rec.onerror = (e) => {
-      if (e.error === 'no-speech' || e.error === 'aborted') return;
-      active = false;
-      const msg =
+      if (e.error === 'no-speech' || e.error === 'aborted') return; // handled by onend's restart limits
+      giveUp(
         e.error === 'not-allowed' || e.error === 'service-not-allowed'
           ? '음성 인식 권한이 거부되었습니다. 녹음은 계속 저장되며, 결과 화면에서 답변 텍스트를 직접 입력할 수 있습니다.'
           : e.error === 'network'
             ? '음성 인식 서버에 연결하지 못했습니다. 녹음은 정상 저장됩니다.'
-            : `음성 인식 오류(${e.error}). 녹음은 정상 저장됩니다.`;
-      onError(msg);
+            : `음성 인식 오류(${e.error}). 녹음은 정상 저장됩니다.`,
+      );
     };
     rec.onend = () => {
-      if (active) {
-        try {
-          begin();
-        } catch {
-          active = false;
-        }
+      if (interim) {
+        finalText = `${finalText} ${interim}`.trim();
+        interim = '';
+      }
+      if (!active) {
+        resolveStop?.(finalText);
         return;
       }
-      if (interim) finalText = `${finalText} ${interim}`.trim();
-      resolveStop?.(finalText);
+      // Engines end sessions after silence, so restart — but never in a tight loop. A session that keeps
+      // ending immediately (e.g. the mic is busy with the recorder) means recognition can't run here.
+      quickEnds = performance.now() - startedAt < 1500 ? quickEnds + 1 : 0;
+      restarts += 1;
+      if (quickEnds >= 3 || restarts > 40) {
+        giveUp('이 기기에서는 녹음 중 음성 인식이 계속 중단되어 인식을 멈췄습니다. 녹음은 정상 저장되며, 결과 화면에서 답변 텍스트를 직접 입력할 수 있습니다.');
+        return;
+      }
+      restartTimer = window.setTimeout(() => {
+        if (!active) return;
+        try {
+          startedAt = performance.now();
+          begin();
+        } catch {
+          giveUp('음성 인식을 다시 시작하지 못했습니다. 녹음은 정상 저장됩니다.');
+        }
+      }, 300);
     };
+    startedAt = performance.now();
     rec.start();
   };
 
@@ -142,6 +168,7 @@ export function startTranscription(onUpdate: (text: string) => void, onError: (m
   return {
     stop() {
       active = false;
+      window.clearTimeout(restartTimer);
       return new Promise((resolve) => {
         resolveStop = resolve;
         try {
@@ -150,11 +177,12 @@ export function startTranscription(onUpdate: (text: string) => void, onError: (m
           resolve(finalText);
         }
         // Resolve even if the engine never fires onend.
-        window.setTimeout(() => resolve(`${finalText} ${interim}`.trim()), 2500);
+        window.setTimeout(() => resolve(`${finalText} ${interim}`.trim()), 1500);
       });
     },
     abort() {
       active = false;
+      window.clearTimeout(restartTimer);
       try {
         rec.abort();
       } catch {

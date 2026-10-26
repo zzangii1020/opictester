@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { RecorderError, VoiceRecorder } from '../lib/recorder';
+import { isIOS, RecorderError, VoiceRecorder } from '../lib/recorder';
 import { startTranscription, type TranscriptionSession } from '../lib/speech';
 import { putAudio } from '../lib/audioDb';
 import type { AnswerRecord } from '../types';
@@ -28,17 +28,16 @@ export function useAnswerRecorder({ sttEnabled, onSaved, onStarted, onAborted }:
   const callbacks = useRef({ onSaved, onStarted, onAborted });
   callbacks.current = { onSaved, onStarted, onAborted };
 
+  // ~6 updates/s is enough for the timer and meter; per-frame updates re-render the whole exam screen
+  // and make phones (notably iPhone Safari) sluggish to the point of ignoring taps.
   useEffect(() => {
     if (status !== 'recording') return;
     const started = performance.now();
-    let frame = 0;
-    const loop = () => {
+    const id = window.setInterval(() => {
       setElapsedMs(performance.now() - started);
       setLevel(recorderRef.current?.level() ?? 0);
-      frame = requestAnimationFrame(loop);
-    };
-    frame = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(frame);
+    }, 160);
+    return () => window.clearInterval(id);
   }, [status]);
 
   const start = useCallback(
@@ -59,7 +58,10 @@ export function useAnswerRecorder({ sttEnabled, onSaved, onStarted, onAborted }:
       }
       recorderRef.current = recorder;
       targetRef.current = { questionId, audioKey };
-      if (sttEnabled) {
+      if (sttEnabled && isIOS()) {
+        // iOS can't reliably run speech recognition while MediaRecorder holds the microphone.
+        setSttNotice('iPhone·iPad에서는 녹음 중 음성 인식을 함께 사용할 수 없어 녹음만 저장합니다. 답변 텍스트는 결과 화면에서 직접 입력할 수 있습니다.');
+      } else if (sttEnabled) {
         sttRef.current = startTranscription(setLiveTranscript, setSttNotice);
         if (!sttRef.current) setSttNotice('이 브라우저는 음성 인식을 지원하지 않습니다. 녹음은 정상 저장되며, 답변 텍스트는 결과 화면에서 직접 입력할 수 있습니다.');
       }

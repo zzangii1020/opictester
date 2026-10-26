@@ -35,7 +35,7 @@ h5 { font-size: 0.9rem; margin: 1em 0 0.4em; }
 p { margin: 0 0 0.75em; }
 a { color: var(--primary); }
 code { background: #eef1f6; padding: 1px 5px; border-radius: 4px; font-size: 0.9em; }
-button { font: inherit; }
+button { font: inherit; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 
 .muted { color: var(--muted); }
 .small { font-size: 0.86rem; }
